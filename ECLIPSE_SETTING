@@ -1,4 +1,0 @@
-研究主题：
- IDE:eclipse中的设定目录下的文件在实际项目发布的时候是怎么转换的。
- 例如：[org.eclipse.wst.common.component]中的web网页路径定义
- 
