@@ -1,0 +1,9 @@
+■JSF学习
+　学习对象网站：
+ 　　https://qiita.com/tkxlab/items/3c0d4073defacb1215f5
+※【】は日本語の翻訳
+
+■勉強記録：
+　EL式："#{meiboBean.number}"ような形です。
+　　　　JSFの画面のコード中のEL式はJavaプログラムの変数との対応付け【映象、映射】を行っています。
+    
