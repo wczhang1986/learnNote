@@ -4,6 +4,7 @@
 ※【】は日本語の翻訳
 
 ■勉強記録：
-　EL式："#{meiboBean.number}"ような形です。
+　EL式："#{xxxxBean.number}"ような形です。
 　　　　JSFの画面のコード中のEL式はJavaプログラムの変数との対応付け【映象、映射】を行っています。
-    
+  Beanクラス設定：xxxxBeanクラスの上にアノテーション「@Named」を設定する
+  
