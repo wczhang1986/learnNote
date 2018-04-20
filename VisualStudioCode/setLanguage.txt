@@ -1,0 +1,5 @@
+Ctrl+Shift+P
+Configure Language 
+   "locale":"zh-CN"
+
+https://code.visualstudio.com/docs/getstarted/locales  
