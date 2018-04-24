@@ -1,0 +1,11 @@
+下面的代码是vb新建文件和写入内容的代码
+·多次执行属于覆盖型，不会出错
+·c盘根目录下不能创建文件
+
+----------------------------------------------------------------------
+Dim fso, MyFile
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set MyFile = fso.CreateTextFile("c:\cc\testfile.txt", True)
+MyFile.WriteLine("This is a test.")
+MyFile.Close
+-----------------------------------------------------------------------
