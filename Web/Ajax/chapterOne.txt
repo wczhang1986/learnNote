@@ -1,1 +1,10 @@
-
+$.ajax({
+      type: 'POST',
+      url: '/todos.json',
+      data: {
+        todo: {
+          content: todo
+        }
+      },
+      dataType: 'json' //データをjson形式で飛ばす
+    })
