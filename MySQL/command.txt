@@ -1,0 +1,2 @@
+#テーブルデータバックアップ
+mysqldump -u USER_NAME -p -h HOST_NAME DB_NAME TABLE_NAME > OUTPUT_FILE_NAME
