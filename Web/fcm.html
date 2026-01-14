@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>获取FCM令牌</title>
+</head>
+<body>
+    <h2>获取FCM设备令牌</h2>
+    <button onclick="requestPermissionAndGetToken()">请求权限并获取令牌</button>
+    <div id="tokenArea" style="margin-top: 20px; word-break: break-all;"></div>
+
+    <!-- 引入 Firebase 脚本 (使用兼容版本，更稳定) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-messaging-compat.js"></script>
+
+    <script>
+        // 1. 你的 Firebase 配置 (替换成你自己的!)
+        const firebaseConfig = {
+                apiKey: "AIzaSyAdE5Y5AeqpYLUwX6YKAY6UWjp-hk51tuI",
+                authDomain: "cho-mansei.firebaseapp.com",
+                projectId: "cho-mansei",
+                messagingSenderId: "589796244868",
+                appId: "1:589796244868:web:435b988364f0686289b1d1"
+        };
+
+        // 2. 初始化 Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging(app);
+
+        // 3. 配置 VAPID 密钥 (同样需要替换)
+        const vapidKey = "BFq1wh-bRmxKAuJpDAUiTjbeKdYybuzJt48OiKPDNgvUWtL1b9C4coopD8sCpR6qfoEm6BTvLoRBnjsZZKYdMu8"; // 在Firebase控制台：项目设置 > 云消息 > Web配置 中
+
+        async function requestPermissionAndGetToken() {
+            // 请求通知权限
+            const permissio = Notification.permission;
+            console.log('现在的状况:', permissio);
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+                console.log('通知权限已授予');
+                try {
+                    // 核心：获取设备令牌
+                    const currentToken = await messaging.getToken({ vapidKey: vapidKey });
+                    if (currentToken) {
+                        console.log('设备令牌:', currentToken);
+                        document.getElementById('tokenArea').innerHTML = 
+                            `<strong>令牌获取成功:</strong><br>${currentToken}`;
+                        // 这里可以调用函数将令牌发送到你的服务器
+                        // sendTokenToServer(currentToken);
+                    } else {
+                        document.getElementById('tokenArea').innerHTML = 
+                            '<strong>未获取到令牌。</strong>请检查是否配置了Service Worker。';
+                    }
+                } catch (error) {
+                    console.error('获取令牌失败:', error);
+                    document.getElementById('tokenArea').innerHTML = 
+                        `<strong>错误:</strong> ${error.message}`;
+                }
+            } else {
+                alert('您拒绝了通知权限，无法获取推送令牌。');
+            }
+        }
+
+        // 4. （可选）监听前台消息
+        messaging.onMessage((payload) => {
+            console.log('收到前台消息:', payload);
+            // 可以在这里显示自定义通知
+            new Notification(payload.notification.title, {
+                body: payload.notification.body
+            });
+        });
+    </script>
+</body>
+</html>
